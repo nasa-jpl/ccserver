@@ -1,0 +1,6 @@
+[submodule "external/cxxopts"]
+	path = external/cxxopts
+	url = git@github.com:jarro2783/cxxopts.git
+[submodule "external/NanoCBOR"]
+	path = external/NanoCBOR
+	url = https://github.com/bergzand/NanoCBOR
