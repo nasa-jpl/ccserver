@@ -60,6 +60,9 @@ make
 
 # Show help
 ./ccserver --help
+
+# Test client - Note the ".c" URL will change to whatever is implemented. That is just a placeholder in the code
+./coap-client-notls -m get coap://127.0.0.1:5684/.c
 ```
 
 ## Project Structure
