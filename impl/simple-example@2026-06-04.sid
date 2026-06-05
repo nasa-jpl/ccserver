@@ -1,0 +1,82 @@
+{
+  "ietf-sid-file:sid-file": {
+    "module-name": "simple-example",
+    "module-revision": "2026-06-04",
+    "sid-file-status": "unpublished",
+    "assignment-range": [
+      {
+        "entry-point": "1000",
+        "size": "100"
+      }
+    ],
+    "item": [
+      {
+        "namespace": "module",
+        "identifier": "simple-example",
+        "status": "unstable",
+        "sid": "1000"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store",
+        "status": "unstable",
+        "sid": "1001"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/data-store-value",
+        "status": "unstable",
+        "sid": "1002",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list",
+        "status": "unstable",
+        "sid": "1003"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list/index",
+        "status": "unstable",
+        "sid": "1004",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list/sub-item-list",
+        "status": "unstable",
+        "sid": "1005"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list/sub-item-list/index",
+        "status": "unstable",
+        "sid": "1006",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list/sub-item-list/sub-value",
+        "status": "unstable",
+        "sid": "1007",
+        "type": "int32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/simple-example:data-store/item-list/value",
+        "status": "unstable",
+        "sid": "1008",
+        "type": "int32"
+      }
+    ],
+    "key-mapping": {
+      "1003": [
+        1004
+      ],
+      "1005": [
+        1006
+      ]
+    }
+  }
+}

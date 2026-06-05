@@ -1,0 +1,11 @@
+{
+  "simple-example:data-store": {
+    "item-list": [
+      {
+        "index": 0,
+        "sub-item-list": []
+      }
+    ],
+    "data-store-value": 128
+  }
+}
