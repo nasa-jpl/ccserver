@@ -115,7 +115,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Server shutting down..." << std::endl;
 
 cleanup:
-    // Clean up resources
+    // Clean up CORECONF resources
+    coreconf::cleanup_handlers();
+
+    // Clean up CoAP resources
     if (ctx) {
         coap_free_context(ctx);
     }
