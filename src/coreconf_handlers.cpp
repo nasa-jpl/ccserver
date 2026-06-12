@@ -139,10 +139,6 @@ void handle_fetch(coap_resource_t *resource, coap_session_t *session, const coap
     // Use the global key mapping (already loaded in initialize_handlers)
     // NOTE: Removed recreation of keyMappingHashMap here to avoid memory leak
 
-    DynamicLongListT *requestKeys = createDynamicLongList();
-
-    uint64_t requestSid = 0;
-
     /* Fetch the payload (request SID and keys
         Payload will be in the format:
         [REQUESTED_SID_1, [REQUEST_SID2, REQUESTED_SID2_KEY1, REQUESTED_SID2_KEY2..]..]
@@ -151,142 +147,95 @@ void handle_fetch(coap_resource_t *resource, coap_session_t *session, const coap
 
     // TODO: we should try to remove this dependency on nanocbor from this level
     while (!nanocbor_at_end(&decoder)) {
+        DynamicLongListT *requestKeys = createDynamicLongList();
+        uint64_t requestSid = 0;
         CoreconfValueT *requestElement = cborToCoreconfValue(&decoder, 0);
         printf("\nDeserialized Coreconf: \n");
         printCoreconf(requestElement);
         printf("\n");
 
-        // TODO: There is common code between this and the integer path. Move that to common function
+        // Extract request SID and keys based on element type
         if (requestElement->type == CORECONF_UINT_32 || requestElement->type == CORECONF_UINT_64) {
-            // Query the coreconf model for an individual SID request
-            requestSid = requestElement->data.u64;
-            // Find the requirement for the SID
-            PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
-
-            // NULL Check for pathNodes
-            if (pathNodes == NULL) {
-                printf("SID not found in the coreconf model\n");
-                freeCoreconf(requestElement, true);
-                // Move to the next requested SID
-                nanocbor_skip(&decoder);
-                continue;
-            }
-
-            // Print the PathNodeT
-            printf("To reach your SID, the following SIDs  are traversed: \n");
-            printPathNode(pathNodes);
-            printf("---------\n");
-
-            // Check if there's a registered handler for this SID
-            CoreconfValueT *examinedValue = NULL;
-            SidHandlerEntry *handler = lookupSidHandler(requestSid);
-
-            if (handler != NULL && handler->readHandler != NULL) {
-                printf("Found handler for SID %lu, calling custom read handler\n", requestSid);
-
-                // Create context for handler
-                SidHandlerContext ctx = {
-                    .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
-
-                // Call the handler
-                examinedValue = handler->readHandler(&ctx);
-
-                if (examinedValue != NULL) {
-                    printf("Handler returned value successfully\n");
-                } else {
-                    printf("Handler returned NULL, falling back to hashmap traversal\n");
-                }
-            }
-
-            // NULL Check for examinedValue
-            if (examinedValue == NULL) {
-                printf("Couldn't find any results after the traversal\n");
-                freePathNode(pathNodes);
-                freeCoreconf(requestElement, true);
-                // Move to the next requested SID
-                continue;
-            }
-
-            printf("Coreconf subtree after traversal: \n");
-            printCoreconf(examinedValue);
-            printf("---------\n");
-            addToCoreconfArray(coreconfResponsePayload, examinedValue);
-
-            // Cleanup per-request temporary structures
-            // NOTE: Don't free examinedValue - array owns it (transferred ownership)
-            freePathNode(pathNodes);
-            freeCoreconf(requestElement, true);
-
+            // Query the coreconf model for an individual SID request (no keys)
+            requestSid =
+                (requestElement->type == CORECONF_UINT_32) ? requestElement->data.u32 : requestElement->data.u64;
         } else if (requestElement->type == CORECONF_ARRAY) {
             // The first element of the array is the request SID, the rest are SID keys
             CoreconfValueT *requestSidElement = &(requestElement->data.array_value->elements[0]);
-            requestSid = requestSidElement->data.u64;
+            requestSid = (requestSidElement->type == CORECONF_UINT_32) ? requestSidElement->data.u32
+                                                                       : requestSidElement->data.u64;
 
-            // Iterate through the rest of the array
             for (size_t j = 1; j < requestElement->data.array_value->size; j++) {
                 CoreconfValueT *requestKeyElement = &(requestElement->data.array_value->elements[j]);
-                addLong(requestKeys, requestKeyElement->data.u64);
+                uint64_t keyValue = (requestKeyElement->type == CORECONF_UINT_32) ? requestKeyElement->data.u32
+                                                                                  : requestKeyElement->data.u64;
+                addLong(requestKeys, keyValue);
             }
-
-            // Find the requirement for the SID
-            PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
-
-            // NULL Check for pathNodes
-            if (pathNodes == NULL) {
-                printf("SID not found in the coreconf model\n");
-                freeCoreconf(requestElement, true);
-                // Move to the next requested SID
-                nanocbor_skip(&decoder);
-                continue;
-            }
-
-            // Print the PathNodeT
-            printf("To reach your SID, the following SIDs  are traversed: \n");
-            printPathNode(pathNodes);
-            printf("---------\n");
-
-            // Check if there's a registered handler for this SID
-            CoreconfValueT *examinedValue = NULL;
-            SidHandlerEntry *handler = lookupSidHandler(requestSid);
-
-            if (handler != NULL && handler->readHandler != NULL) {
-                printf("Found handler for SID %lu (with keys), calling custom read handler\n", requestSid);
-
-                // Create context for handler
-                SidHandlerContext ctx = {
-                    .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
-
-                // Call the handler
-                examinedValue = handler->readHandler(&ctx);
-
-                if (examinedValue != NULL) {
-                    printf("Handler returned value successfully\n");
-                } else {
-                    printf("Handler returned NULL, falling back to hashmap traversal\n");
-                }
-            }
-
-            // NULL Check for examinedValue
-            if (examinedValue == NULL) {
-                printf("Couldn't find any results after the traversal\n");
-                freePathNode(pathNodes);
-                freeCoreconf(requestElement, true);
-                // Move to the next requested SID
-                continue;
-            }
-            printf("Coreconf subtree after traversal: \n");
-            printCoreconf(examinedValue);
-            printf("---------\n");
-            addToCoreconfArray(coreconfResponsePayload, examinedValue);
-
-            // Cleanup per-request temporary structures
-            // NOTE: Don't free examinedValue - array owns it (transferred ownership)
-            freePathNode(pathNodes);
-            freeCoreconf(requestElement, true);
         } else {
             // Unknown type, cleanup and continue
             freeCoreconf(requestElement, true);
+            freeDynamicLongList(requestKeys);
+            continue;
         }
+
+        // Common processing for both integer and array request types
+        // Find the requirement for the SID
+        PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
+
+        // NULL Check for pathNodes
+        if (pathNodes == NULL) {
+            printf("SID not found in the coreconf model\n");
+            freeCoreconf(requestElement, true);
+            // Move to the next requested SID
+            nanocbor_skip(&decoder);
+            continue;
+        }
+
+        // Print the PathNodeT
+        printf("To reach your SID, the following SIDs  are traversed: \n");
+        printPathNode(pathNodes);
+        printf("---------\n");
+
+        // Check if there's a registered handler for this SID
+        CoreconfValueT *examinedValue = NULL;
+        SidHandlerEntry *handler = lookupSidHandler(requestSid);
+
+        if (handler != NULL && handler->readHandler != NULL) {
+            printf("Found handler for SID %lu, calling custom read handler\n", requestSid);
+
+            // Create context for handler
+            SidHandlerContext ctx = {
+                .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
+
+            // Call the handler
+            examinedValue = handler->readHandler(&ctx);
+
+            if (examinedValue != NULL) {
+                printf("Handler returned value successfully\n");
+            } else {
+                printf("Handler returned NULL, falling back to hashmap traversal\n");
+            }
+        }
+
+        // NULL Check for examinedValue
+        if (examinedValue == NULL) {
+            printf("Couldn't find any results after the traversal\n");
+            freePathNode(pathNodes);
+            freeCoreconf(requestElement, true);
+            // Move to the next requested SID
+            continue;
+        }
+
+        printf("Coreconf subtree after traversal: \n");
+        printCoreconf(examinedValue);
+        printf("---------\n");
+        addToCoreconfArray(coreconfResponsePayload, examinedValue);
+
+        // Cleanup per-request temporary structures
+        // NOTE: Don't free examinedValue - array owns it (transferred ownership)
+        freePathNode(pathNodes);
+        freeCoreconf(requestElement, true);
+        freeDynamicLongList(requestKeys);
     }
 
     // Serialize the response payload
@@ -313,7 +262,6 @@ void handle_fetch(coap_resource_t *resource, coap_session_t *session, const coap
 
     // Cleanup request-specific allocations
     freeCoreconf(coreconfResponsePayload, true);
-    freeDynamicLongList(requestKeys);
 
     return;
 }
@@ -338,7 +286,6 @@ void handle_ipatch(coap_resource_t *resource, coap_session_t *session, const coa
     nanocbor_decoder_init(&decoder, data, size);
 
     bool allSucceeded = true;
-    DynamicLongListT *requestKeys = createDynamicLongList();
 
     // Each element should be a map, but the key could be of the form
     // Payload format: Array of maps [{SID1: value1}, {SID2: value2}, ...]
@@ -347,128 +294,104 @@ void handle_ipatch(coap_resource_t *resource, coap_session_t *session, const coa
         // [REQUESTED_SID_1, [REQUEST_SID2, REQUESTED_SID2_KEY1, REQUESTED_SID2_KEY2..]..]
         // so we need to handle that since an array is not hashable as a key and cannot be stored
         // TODO: Try to remove the knowledge of nanocbor from this level
+        DynamicLongListT *requestKeys = createDynamicLongList();
         nanocbor_value_t map;
         int res;
         if (nanocbor_enter_map(&decoder, &map) < NANOCBOR_OK) {
             printf("Warning: Expected map in iPATCH request\n");
+            freeDynamicLongList(requestKeys);
             nanocbor_skip(&decoder);
             continue;
         }
 
-        // Check if this is a "normal" map with a uint key
+        // Extract request SID and keys from the map key
         CoreconfValueT *requestElement = cborToCoreconfValue(&map, 0);
-        uint64_t requestSid;
-        // TODO: There is common code between this and the integer path. Move that to common function
+        uint64_t requestSid = 0;
+
+        // Extract request SID and keys based on element type
         if (requestElement->type == CORECONF_ARRAY) {
             // The first element of the array is the request SID, the rest are SID keys
             CoreconfValueT *requestSidElement = &(requestElement->data.array_value->elements[0]);
-            requestSid = requestSidElement->data.u64;
+            requestSid = (requestSidElement->type == CORECONF_UINT_32) ? requestSidElement->data.u32
+                                                                       : requestSidElement->data.u64;
 
-            // Iterate through the rest of the array
             for (size_t j = 1; j < requestElement->data.array_value->size; j++) {
                 CoreconfValueT *requestKeyElement = &(requestElement->data.array_value->elements[j]);
-                addLong(requestKeys, requestKeyElement->data.u64);
-            }
-
-            // Get the value
-            CoreconfValueT *requestValue = cborToCoreconfValue(&map, 0);
-
-            // Find the requirement for the SID
-            PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
-            if (pathNodes == NULL) {
-                printf("SID %lu not found in the coreconf model\n", requestSid);
-                nanocbor_skip(&map);
-                allSucceeded = false;
-                continue;
-            }
-
-            printf("To reach SID %lu, the following path is traversed: \n", requestSid);
-            printPathNode(pathNodes);
-            printf("---------\n");
-
-            // Check if there's a registered handler for this SID
-            SidHandlerEntry *handler = lookupSidHandler(requestSid);
-            int writeResult = -1;
-
-            if (handler != NULL && handler->writeHandler != NULL) {
-                printf("Found write handler for SID %lu, calling custom write handler\n", requestSid);
-
-                // Create context for handler
-                SidHandlerContext ctx = {
-                    .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
-
-                // Call the write handler - pass the entire value structure
-                writeResult = handler->writeHandler(&ctx, requestValue);
-
-                if (writeResult == 0) {
-                    printf("Write handler succeeded for SID %lu\n", requestSid);
-                } else {
-                    allSucceeded = false;
-                    printf("Write failed for SID %lu\n", requestSid);
-                }
-            }
-
-            // Cleanup
-            freePathNode(pathNodes);
-            res = nanocbor_leave_container(&decoder, &map);
-            if (res < 0) {
-                std::cout << "Leave no work" << std::endl;
-            } else {
-                std::cout << "Leave work" << std::endl;
+                uint64_t keyValue = (requestKeyElement->type == CORECONF_UINT_32) ? requestKeyElement->data.u32
+                                                                                  : requestKeyElement->data.u64;
+                addLong(requestKeys, keyValue);
             }
         } else if (requestElement->type == CORECONF_UINT_32 || requestElement->type == CORECONF_UINT_64) {
-            // We do just have an integer key
-            uint64_t requestSid = requestElement->data.u64;
-            CoreconfValueT *newValue = cborToCoreconfValue(&map, 0);
-
-            printf("Processing write for SID %lu\n", requestSid);
-            printf("New value: ");
-            printCoreconf(newValue);
-            printf("\n");
-
-            // Find the requirement for the SID
-            PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
-            if (pathNodes == NULL) {
-                printf("SID %lu not found in the coreconf model\n", requestSid);
-                res = nanocbor_leave_container(&decoder, &map);
-                allSucceeded = false;
-                continue;
-            }
-
-            printf("To reach SID %lu, the following path is traversed: \n", requestSid);
-            printPathNode(pathNodes);
-            printf("---------\n");
-
-            // Check if there's a registered handler for this SID
-            SidHandlerEntry *handler = lookupSidHandler(requestSid);
-            int writeResult = -1;
-
-            if (handler != NULL && handler->writeHandler != NULL) {
-                printf("Found write handler for SID %lu, calling custom write handler\n", requestSid);
-
-                // Create context for handler
-                SidHandlerContext ctx = {
-                    .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
-
-                // Call the write handler - pass the entire value structure
-                writeResult = handler->writeHandler(&ctx, newValue);
-
-                if (writeResult == 0) {
-                    printf("Write handler succeeded for SID %lu\n", requestSid);
-                } else {
-                    allSucceeded = false;
-                    printf("Write failed for SID %lu\n", requestSid);
-                }
-            }
-
-            // Cleanup
-            freePathNode(pathNodes);
-            res = nanocbor_leave_container(&decoder, &map);
+            // Simple integer key (no additional keys)
+            requestSid = (requestElement->type == CORECONF_UINT_32) ? requestElement->data.u32 : requestElement->data.u64;
+        } else {
+            // Unknown type, cleanup and continue
+            freeCoreconf(requestElement, true);
+            freeDynamicLongList(requestKeys);
+            nanocbor_leave_container(&decoder, &map);
+            continue;
         }
-        freeCoreconf(requestElement, true);
-    }
 
-    freeDynamicLongList(requestKeys);
+        // Get the value to write
+        CoreconfValueT *requestValue = cborToCoreconfValue(&map, 0);
+
+        printf("Processing write for SID %lu\n", requestSid);
+        printf("New value: ");
+        printCoreconf(requestValue);
+        printf("\n");
+
+        // Common processing for both integer and array key types
+        // Find the requirement for the SID
+        PathNodeT *pathNodes = findRequirementForSID(requestSid, clookupHashmap, keyMappingHashMap);
+        if (pathNodes == NULL) {
+            printf("SID %lu not found in the coreconf model\n", requestSid);
+            freeCoreconf(requestElement, true);
+            freeCoreconf(requestValue, true);
+            nanocbor_leave_container(&decoder, &map);
+            allSucceeded = false;
+            continue;
+        }
+
+        printf("To reach SID %lu, the following path is traversed: \n", requestSid);
+        printPathNode(pathNodes);
+        printf("---------\n");
+
+        // Check if there's a registered handler for this SID
+        SidHandlerEntry *handler = lookupSidHandler(requestSid);
+        int writeResult = -1;
+
+        if (handler != NULL && handler->writeHandler != NULL) {
+            printf("Found write handler for SID %lu, calling custom write handler\n", requestSid);
+
+            // Create context for handler
+            SidHandlerContext ctx = {
+                .sid = requestSid, .keys = requestKeys, .pathNode = pathNodes, .coreconfModel = coreconfModel};
+
+            // Call the write handler - pass the entire value structure
+            writeResult = handler->writeHandler(&ctx, requestValue);
+
+            if (writeResult == 0) {
+                printf("Write handler succeeded for SID %lu\n", requestSid);
+                // NOTE: Do NOT free requestValue here - the write handler has inserted it
+                // into the coreconfModel, which now owns it
+            } else {
+                allSucceeded = false;
+                printf("Write failed for SID %lu\n", requestSid);
+                // Only free requestValue if write failed (not inserted into model)
+                freeCoreconf(requestValue, true);
+            }
+        } else {
+            // No handler found, free the value
+            freeCoreconf(requestValue, true);
+        }
+
+        // Cleanup
+        freePathNode(pathNodes);
+        freeCoreconf(requestElement, true);
+        freeDynamicLongList(requestKeys);
+
+        nanocbor_leave_container(&decoder, &map);
+    }
 
     // Set response code based on results
     if (allSucceeded) {
