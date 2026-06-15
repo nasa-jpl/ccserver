@@ -1,0 +1,268 @@
+= CORECONF CoAP Server
+:toc:
+:toclevels: 3
+:numbered:
+
+A C++ implementation of a CORECONF (YANG-CBOR) server using libcoap, nanocbor, and ccoreconf.
+
+== Overview
+
+This server implements the CORECONF protocol for managing network devices using YANG data models over CoAP with CBOR encoding. It provides a complete implementation with auto-generated handlers from YANG models and SID files.
+
+=== Supported Operations
+
+The server implements the three main CORECONF operations:
+
+* *GET (not yet implemented)*: Retrieve a single data node
+* *FETCH*: Retrieve multiple data nodes in a single request
+* *iPATCH*: Apply partial updates to configuration data
+
+== Architecture
+
+The server uses a layered architecture:
+
+. *CoAP Layer*: Handles CoAP protocol communication (libcoap)
+. *CORECONF Handler Layer*: Processes CORECONF requests and responses
+. *SID Handler Registry*: Maps SIDs to read/write handlers
+. *Implementation Layer*: User-provided business logic for data access
+. *Datastore*: In-memory YANG data tree with CBOR serialization
+
+=== Key Components
+
+* *coreconf_handlers*: Main CORECONF protocol handlers (GET, FETCH, iPATCH)
+* *sid_handlers*: Registry for SID-specific read/write handlers
+* *ccoreconf*: YANG data model manipulation and CBOR serialization
+* *Auto-generated handlers*: SID-specific handlers generated from YANG/SID files
+* *Implementation stubs*: User-provided read/write functions for actual data access
+
+== Dependencies
+
+=== Required Libraries
+
+* *libcoap-3*: CoAP protocol implementation
+* *nanocbor*: Lightweight CBOR encoder/decoder (included as submodule)
+* *ccoreconf*: CORECONF data model library (included as submodule)
+* *cxxopts*: Command-line argument parsing (included as submodule)
+
+=== Installing System Dependencies
+
+==== Ubuntu/Debian
+
+[source,bash]
+----
+sudo apt-get install libcoap3-dev
+----
+
+== Building
+
+[source,bash]
+----
+# Clone with submodules
+git clone --recursive <repository-url>
+
+# Or if already cloned, initialize submodules
+git submodule update --init --recursive
+
+# Build
+mkdir build
+cd build
+cmake -DSID_FILES="../impl/simple-example@2026-06-04.sid" -DINSTANCE_JSON="../impl/simple-example-instance.json" -DGENERATED_NAME="simple-example" ..
+make
+----
+
+The build process will:
+
+. Build external dependencies (NanoCBOR, ccoreconf)
+. Generate SID handlers from `.sid` files
+. Generate model instance CBOR buffer
+. Compile the server binary
+
+== Usage
+
+=== Starting the Server
+
+[source,bash]
+----
+# Run with default settings (bind to all interfaces on port 5683)
+./ccserver
+
+# Specify host and port
+./ccserver --host 127.0.0.1 --port 5684
+
+# Show help
+./ccserver --help
+----
+
+=== Testing with CoAP Client
+
+[source,bash]
+----
+# GET request
+coap-client -m get coap://127.0.0.1:5683/c
+
+# FETCH request (retrieve SID 1002)
+echo "820403ea" | xxd -r -p | coap-client -m fetch -f - coap://127.0.0.1:5683/c
+
+# iPATCH request (update SID 1002 to value 42)
+echo "81a10403ea182a" | xxd -r -p | coap-client -m ipatch -f - coap://127.0.0.1:5683/c
+----
+
+== Project Structure
+
+----
+ccserver/
+├── CMakeLists.txt              # Build configuration
+├── README.adoc                 # This file
+├── external/                   # Third-party dependencies
+│   ├── ccoreconf/             # CORECONF library (submodule)
+│   ├── cxxopts/               # Command-line parsing (submodule)
+│   └── NanoCBOR/              # CBOR encoder/decoder (submodule)
+├── include/                    # Header files
+│   ├── coreconf_handlers.h    # CORECONF protocol handlers
+│   └── sid_handlers.h         # SID handler registry
+├── impl/                       # User implementation files
+│   ├── simple-example-impl.c  # User defined logic for data read/write
+│   └── simple-example-impl.h  # Implementation header
+├── src/                        # Source files
+│   ├── main.cpp               # Server initialization and main loop
+│   ├── coreconf_handlers.cpp  # CORECONF request handlers
+│   ├── sid_handlers.c         # SID handler registry implementation
+│   └── nanocbor_print.c       # CBOR debugging utilities
+└── build/                      # Build output directory
+    └── generated/             # Auto-generated handler code
+        ├── simple-example-handlers.c
+        └── simple-example-handlers.h
+----
+
+== Implementation Guide
+
+=== Adding Support for a New YANG Model
+
+. *Add your YANG model* to the appropriate directory
+. *Generate SID file* using pyang with SID plugin
+. *Generate autocoded* handlers and implementation stubs
+. *Implement read/write functions* by copying stubs into the `impl/` directory and modifying as needed
+. *Update CMakeLists.txt* to include your impl files
+. *Rebuild*
+
+=== Handler Auto-Generation
+
+The build system automatically generates SID-specific handlers from `.sid` files, as well as user implementation stubs.
+
+[source,bash]
+----
+mkdir build
+cd build
+cmake -DSID_FILES=<your_sid_files.sid> -DINSTANCE_JSON=<your_model_instance.json> -DGENERATED_NAME=<your_base_name> ..
+make generated_handlers
+cp generated/<your_base_name>-impl-template.* ../impl
+mv ../impl/<your_base_name>-impl-template.c ../impl/<your_base_name>-impl.c
+mv ../impl/<your_base_name>-impl-template.h ../impl/<your_base_name>-impl.h
+----
+
+Thes auto-generated handlers:
+
+. Extract keys from request context
+. Call user-implemented read/write functions
+. Update the in-memory datastore
+. Handle type validation and error reporting
+
+=== Updating Custom Implementation
+
+After copying the implementation stubs, you can edit them as needed:
+
+[source,c]
+----
+// Read function
+uint32_t read_<module>_<identifier>() {
+    // Return current value
+    return current_value;
+}
+
+// Write function
+int write_<module>_<identifier>(uint32_t new_value) {
+    // Validate and store new value
+    current_value = new_value;
+    return 0; // Success
+}
+----
+
+== Known Issues
+
+* GET handler needs full implementation
+* Error responses could be more detailed
+* No support for YANG notifications yet
+* Limited validation of YANG constraints
+
+== Future Enhancements
+
+TODO: Place a link to the GitHub issues
+
+* [ ] Complete GET handler implementation
+* [ ] Add support for YANG notifications
+* [ ] Implement YANG validation (must, when, etc.)
+* [ ] Add support for RPC operations
+* [ ] Persistent datastore backend
+* [ ] DTLS security support
+* [ ] Observe (subscribe) support for state changes
+
+== CORECONF Protocol Details
+
+=== FETCH Request Format
+
+FETCH requests use CBOR arrays to specify which SIDs to retrieve:
+
+----
+[SID1, [SID2, KEY1, KEY2], SID3]
+----
+
+* Simple SID: Just the integer SID value
+* SID with keys: Array where first element is SID, rest are key values
+
+=== iPATCH Request Format
+
+iPATCH requests use CBOR maps to specify SID-value pairs:
+
+----
+[{SID1: VALUE1}, {[SID2, KEY1]: VALUE2}]
+----
+
+* Simple updates: `{SID: value}`
+* List item updates: `{[SID, key]: value}`
+
+=== Response Format
+
+Responses are CBOR-encoded data matching the request structure.
+
+== CORECONF Resources
+
+* https://www.rfc-editor.org/rfc/rfc8132.html[RFC 8132] - PATCH and FETCH Methods for CoAP
+* https://www.rfc-editor.org/rfc/rfc9254.html[RFC 9254] - YANG-CBOR encoding
+* https://datatracker.ietf.org/doc/draft-ietf-core-comi/[draft-ietf-core-comi] - CoAP Management Interface
+* https://datatracker.ietf.org/doc/html/rfc9254[RFC 9254] - YANG Schema Item iDentifier (SID)
+
+== Debugging
+
+=== Enable Verbose Logging
+
+The server includes extensive printf debugging. To see more details:
+
+[source,bash]
+----
+# Run with coap-client debug output
+export COAP_DEBUG=9
+coap-client -v 9 -m fetch -f payload.bin coap://127.0.0.1:5683/c
+----
+
+=== Common Issues
+==== Memory Leaks
+
+Because `ccoreconf` usese dynamic memory allocation, ensure proper cleanup of:
+
+* `requestKeys` (DynamicLongListT)
+* `requestElement` (CoreconfValueT)
+* `requestValue` (CoreconfValueT) - only if not inserted into datastore
+
+==== Garbage SID Values
+
+Always check the Coreconf type (`CORECONF_UINT_32` vs `CORECONF_UINT_64`) before accessing `data.u32` or `data.u64` to avoid reading garbage from the wrong union member.
