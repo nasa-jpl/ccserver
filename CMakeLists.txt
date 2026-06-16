@@ -175,7 +175,6 @@ include_directories(
 set(SOURCES
     src/main.cpp
     src/coreconf_handlers.cpp
-    src/sid_handlers.c
     impl/simple-example-impl.c
     ${HANDLER_SOURCES}
 )

@@ -155,20 +155,18 @@ void handle_fetch(coap_resource_t *resource, coap_session_t *session, const coap
         printf("\n");
 
         // Extract request SID and keys based on element type
-        if (requestElement->type == CORECONF_UINT_32 || requestElement->type == CORECONF_UINT_64) {
+        if (isTypeUint(requestElement->type)) {
             // Query the coreconf model for an individual SID request (no keys)
-            requestSid =
-                (requestElement->type == CORECONF_UINT_32) ? requestElement->data.u32 : requestElement->data.u64;
+            requestSid = getCoreconfValueAsUint64(requestElement);
         } else if (requestElement->type == CORECONF_ARRAY) {
             // The first element of the array is the request SID, the rest are SID keys
             CoreconfValueT *requestSidElement = &(requestElement->data.array_value->elements[0]);
-            requestSid = (requestSidElement->type == CORECONF_UINT_32) ? requestSidElement->data.u32
-                                                                       : requestSidElement->data.u64;
+            requestSid = getCoreconfValueAsUint64(requestSidElement);
 
             for (size_t j = 1; j < requestElement->data.array_value->size; j++) {
                 CoreconfValueT *requestKeyElement = &(requestElement->data.array_value->elements[j]);
-                uint64_t keyValue = (requestKeyElement->type == CORECONF_UINT_32) ? requestKeyElement->data.u32
-                                                                                  : requestKeyElement->data.u64;
+                uint64_t keyValue = getCoreconfValueAsUint64(requestKeyElement);
+
                 addLong(requestKeys, keyValue);
             }
         } else {
@@ -312,18 +310,16 @@ void handle_ipatch(coap_resource_t *resource, coap_session_t *session, const coa
         if (requestElement->type == CORECONF_ARRAY) {
             // The first element of the array is the request SID, the rest are SID keys
             CoreconfValueT *requestSidElement = &(requestElement->data.array_value->elements[0]);
-            requestSid = (requestSidElement->type == CORECONF_UINT_32) ? requestSidElement->data.u32
-                                                                       : requestSidElement->data.u64;
+            requestSid = getCoreconfValueAsUint64(requestSidElement);
 
             for (size_t j = 1; j < requestElement->data.array_value->size; j++) {
                 CoreconfValueT *requestKeyElement = &(requestElement->data.array_value->elements[j]);
-                uint64_t keyValue = (requestKeyElement->type == CORECONF_UINT_32) ? requestKeyElement->data.u32
-                                                                                  : requestKeyElement->data.u64;
+                uint64_t keyValue = getCoreconfValueAsUint64(requestKeyElement);
                 addLong(requestKeys, keyValue);
             }
-        } else if (requestElement->type == CORECONF_UINT_32 || requestElement->type == CORECONF_UINT_64) {
+        } else if (isTypeUint(requestElement->type)) {
             // Simple integer key (no additional keys)
-            requestSid = (requestElement->type == CORECONF_UINT_32) ? requestElement->data.u32 : requestElement->data.u64;
+            requestSid = getCoreconfValueAsUint64(requestElement);
         } else {
             // Unknown type, cleanup and continue
             freeCoreconf(requestElement, true);
