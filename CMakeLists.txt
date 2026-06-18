@@ -79,12 +79,16 @@ else()
 endif()
 
 # Code generation from .sid file(s)
-set(SID_FILES "" CACHE STRING "List of .sid files for code generation (semicolon-separated)")
+set(SID_FILES "" CACHE STRING "List of .sid files for code generation (space or semicolon-separated)")
 set(GENERATED_NAME "generated" CACHE STRING "Base name for generated files")
+set(IDENTIFIER_MAX_WORDS "2" CACHE STRING "Maximum number of words from identifier path for function names (default: 2)")
 
 # Generate handlers from SID files
 if(SID_FILES)
-    message(STATUS "Code generation enabled for: ${SID_FILES} to ${GENERATED_NAME}")
+    # Convert SID_FILES to a CMake list (handles both space-separated strings and semicolon-separated lists)
+    separate_arguments(SID_FILES_LIST UNIX_COMMAND "${SID_FILES}")
+
+    message(STATUS "Code generation enabled for: ${SID_FILES_LIST} to ${GENERATED_NAME}")
 
     set(SID_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
@@ -106,8 +110,9 @@ if(SID_FILES)
         COMMAND ${Python3_EXECUTABLE}
             ${CCORECONF_DIR}/tools/generateStubs.py
             ${GENERATED_NAME}
-            -f ${SID_FILES}
-        DEPENDS ${SID_FILES} ${CCORECONF_DIR}/tools/generateStubs.py
+            -f ${SID_FILES_LIST}
+            --max-identifier-words ${IDENTIFIER_MAX_WORDS}
+        DEPENDS ${SID_FILES_LIST} ${CCORECONF_DIR}/tools/generateStubs.py
         WORKING_DIRECTORY ${SID_GENERATED_DIR}
         COMMENT "Generating handler wrappers from .sid files"
         VERBATIM
@@ -144,9 +149,9 @@ if(INSTANCE_JSON AND SID_FILES)
         COMMAND ${Python3_EXECUTABLE}
             ${CCORECONF_DIR}/tools/generateCBORDumps.py
             -i ${INSTANCE_JSON}
-            -s ${SID_FILES}
+            -s ${SID_FILES_LIST}
             -o ${INSTANCE_GENERATED_HEADER}
-        DEPENDS ${INSTANCE_JSON} ${CCORECONF_DIR}/tools/generateCBORDumps.py
+        DEPENDS ${INSTANCE_JSON} ${SID_FILES_LIST} ${CCORECONF_DIR}/tools/generateCBORDumps.py
         WORKING_DIRECTORY ${INSTANCE_GENERATED_DIR}
         COMMENT "Generating code from .json instance"
         VERBATIM
