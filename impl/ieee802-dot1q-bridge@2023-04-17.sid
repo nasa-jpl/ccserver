@@ -1,0 +1,1966 @@
+{
+  "ietf-sid-file:sid-file": {
+    "module-name": "ieee802-dot1q-bridge",
+    "module-revision": "2023-04-17",
+    "assignment-range": [
+      {
+        "entry-point": "7000",
+        "size": "999"
+      }
+    ],
+    "item": [
+      {
+        "namespace": "module",
+        "identifier": "ieee802-dot1q-bridge",
+        "status": "unstable",
+        "sid": "7000"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "bridge-interface",
+        "status": "unstable",
+        "sid": "7001"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "c-vlan-bridge-port",
+        "status": "unstable",
+        "sid": "7002"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "c-vlan-component",
+        "status": "unstable",
+        "sid": "7003"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "customer-edge-port",
+        "status": "unstable",
+        "sid": "7004"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "customer-network-port",
+        "status": "unstable",
+        "sid": "7005"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "customer-vlan-bridge",
+        "status": "unstable",
+        "sid": "7006"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "d-bridge-component",
+        "status": "unstable",
+        "sid": "7007"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "d-bridge-port",
+        "status": "unstable",
+        "sid": "7008"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "edge-relay-component",
+        "status": "unstable",
+        "sid": "7009"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "provider-bridge",
+        "status": "unstable",
+        "sid": "7010"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "provider-edge-bridge",
+        "status": "unstable",
+        "sid": "7011"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "provider-network-port",
+        "status": "unstable",
+        "sid": "7012"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "remote-customer-access-port",
+        "status": "unstable",
+        "sid": "7013"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "s-vlan-component",
+        "status": "unstable",
+        "sid": "7014"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "two-port-mac-relay-bridge",
+        "status": "unstable",
+        "sid": "7015"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "type-of-bridge",
+        "status": "unstable",
+        "sid": "7016"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "type-of-component",
+        "status": "unstable",
+        "sid": "7017"
+      },
+      {
+        "namespace": "identity",
+        "identifier": "type-of-port",
+        "status": "unstable",
+        "sid": "7018"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "extended-filtering-services",
+        "status": "unstable",
+        "sid": "7019"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "flexible-bridge-port",
+        "status": "unstable",
+        "sid": "7020"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "flow-filtering",
+        "status": "unstable",
+        "sid": "7021"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "ingress-filtering",
+        "status": "unstable",
+        "sid": "7022"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "port-and-protocol-based-vlan",
+        "status": "unstable",
+        "sid": "7023"
+      },
+      {
+        "namespace": "feature",
+        "identifier": "simple-bridge-port",
+        "status": "unstable",
+        "sid": "7024"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges",
+        "status": "unstable",
+        "sid": "7025"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge",
+        "status": "unstable",
+        "sid": "7026"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/address",
+        "status": "unstable",
+        "sid": "7027",
+        "type": "ieee:mac-address"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/bridge-type",
+        "status": "unstable",
+        "sid": "7028",
+        "type": "identityref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component",
+        "status": "unstable",
+        "sid": "7029"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/address",
+        "status": "unstable",
+        "sid": "7030",
+        "type": "ieee:mac-address"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst",
+        "status": "unstable",
+        "sid": "7031"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid",
+        "status": "unstable",
+        "sid": "7032"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid-allocation",
+        "status": "unstable",
+        "sid": "7033"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/fids",
+        "status": "unstable",
+        "sid": "7034",
+        "type": "dot1qtypes:vid-range-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid-allocation/mstid",
+        "status": "unstable",
+        "sid": "7035",
+        "type": "dot1qtypes:mstid-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid/fid",
+        "status": "unstable",
+        "sid": "7036",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/fid-to-mstid/mstid",
+        "status": "unstable",
+        "sid": "7037",
+        "type": "dot1qtypes:mstid-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-mst/mstid",
+        "status": "unstable",
+        "sid": "7038",
+        "type": "dot1qtypes:mstid-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-port",
+        "status": "unstable",
+        "sid": "7039",
+        "type": "if:interface-ref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan",
+        "status": "unstable",
+        "sid": "7040"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/fid-to-vid-allocation",
+        "status": "unstable",
+        "sid": "7041"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/allocation-type",
+        "status": "unstable",
+        "sid": "7042",
+        "type": {
+          "0": "undefined",
+          "1": "fixed",
+          "2": "dynamic"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/fid",
+        "status": "unstable",
+        "sid": "7043",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/fid-to-vid-allocation/vid",
+        "status": "unstable",
+        "sid": "7044",
+        "type": "dot1qtypes:vlan-index-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/max-msti",
+        "status": "unstable",
+        "sid": "7045",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/max-vids",
+        "status": "unstable",
+        "sid": "7046",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/override-default-pvid",
+        "status": "unstable",
+        "sid": "7047",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database",
+        "status": "unstable",
+        "sid": "7048"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/db-index",
+        "status": "unstable",
+        "sid": "7049",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format-type",
+        "status": "unstable",
+        "sid": "7050",
+        "type": {
+          "0": "Ethernet",
+          "1": "rfc1042",
+          "2": "snap8021H",
+          "3": "snapOther",
+          "4": "llcOther"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/ethernet-rfc1042-snap8021H/ethertype",
+        "status": "unstable",
+        "sid": "7051",
+        "type": "dot1qtypes:ethertype-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/llc-other/dsap-ssap-pairs",
+        "status": "unstable",
+        "sid": "7052"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/llc-other/dsap-ssap-pairs/llc-address",
+        "status": "unstable",
+        "sid": "7053",
+        "type": "string"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/frame-format/snap-other/protocol-id",
+        "status": "unstable",
+        "sid": "7054",
+        "type": "string"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-group-database/group-id",
+        "status": "unstable",
+        "sid": "7055",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/protocol-template",
+        "status": "unstable",
+        "sid": "7056",
+        "type": {
+          "0": "Ethernet",
+          "1": "rfc1042",
+          "2": "snap8021H",
+          "3": "snapOther",
+          "4": "llcOther"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/version",
+        "status": "unstable",
+        "sid": "7057",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid",
+        "status": "unstable",
+        "sid": "7058"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid-allocation",
+        "status": "unstable",
+        "sid": "7059"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/allocation-type",
+        "status": "unstable",
+        "sid": "7060",
+        "type": {
+          "0": "undefined",
+          "1": "fixed",
+          "2": "dynamic"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/fid",
+        "status": "unstable",
+        "sid": "7061",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid-allocation/vids",
+        "status": "unstable",
+        "sid": "7062",
+        "type": "dot1qtypes:vid-range-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid/fid",
+        "status": "unstable",
+        "sid": "7063",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vid-to-fid/vid",
+        "status": "unstable",
+        "sid": "7064",
+        "type": "dot1qtypes:vlan-index-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vlan",
+        "status": "unstable",
+        "sid": "7065"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vlan/egress-ports",
+        "status": "unstable",
+        "sid": "7066",
+        "type": "if:interface-ref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vlan/name",
+        "status": "unstable",
+        "sid": "7067",
+        "type": "dot1qtypes:name-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vlan/untagged-ports",
+        "status": "unstable",
+        "sid": "7068",
+        "type": "if:interface-ref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/bridge-vlan/vlan/vid",
+        "status": "unstable",
+        "sid": "7069",
+        "type": "dot1qtypes:vlan-index-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities",
+        "status": "unstable",
+        "sid": "7070"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/configurable-pvid-tagging",
+        "status": "unstable",
+        "sid": "7071",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/extended-filtering",
+        "status": "unstable",
+        "sid": "7072",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/hybrid-capable",
+        "status": "unstable",
+        "sid": "7073",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/ivl-capable",
+        "status": "unstable",
+        "sid": "7074",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/local-vlan-capable",
+        "status": "unstable",
+        "sid": "7075",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/static-entry-individual-port",
+        "status": "unstable",
+        "sid": "7076",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/svl-capable",
+        "status": "unstable",
+        "sid": "7077",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/capabilities/traffic-classes",
+        "status": "unstable",
+        "sid": "7078",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database",
+        "status": "unstable",
+        "sid": "7079"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/aging-time",
+        "status": "unstable",
+        "sid": "7080",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/dynamic-entries",
+        "status": "unstable",
+        "sid": "7081",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/dynamic-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7082",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry",
+        "status": "unstable",
+        "sid": "7083"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/address",
+        "status": "unstable",
+        "sid": "7084",
+        "type": "ieee:mac-address"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/database-id",
+        "status": "unstable",
+        "sid": "7085",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/entry-type",
+        "status": "unstable",
+        "sid": "7086",
+        "type": {
+          "0": "static",
+          "1": "dynamic"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map",
+        "status": "unstable",
+        "sid": "7087"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-filtering-entries",
+        "status": "unstable",
+        "sid": "7088"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7089",
+        "type": {
+          "0": "forward"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-reservation-entries",
+        "status": "unstable",
+        "sid": "7090"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-reservation-entries/control-element",
+        "status": "unstable",
+        "sid": "7091",
+        "type": {
+          "0": "forward",
+          "1": "filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7092",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/dynamic-vlan-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7093",
+        "type": {
+          "0": "registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/mac-address-registration-entries",
+        "status": "unstable",
+        "sid": "7094",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/mac-address-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7095",
+        "type": {
+          "0": "registered",
+          "1": "not-registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-filtering-entries",
+        "status": "unstable",
+        "sid": "7096"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-filtering-entries/connection-identifier",
+        "status": "unstable",
+        "sid": "7097",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7098",
+        "type": {
+          "0": "forward",
+          "1": "filter",
+          "2": "forward-filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7099",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-vlan-registration-entries/registrar-admin-control",
+        "status": "unstable",
+        "sid": "7100",
+        "type": {
+          "0": "fixed-new-ignored",
+          "1": "fixed-new-propagated",
+          "2": "forbidden",
+          "3": "normal"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/static-vlan-registration-entries/vlan-transmitted",
+        "status": "unstable",
+        "sid": "7101",
+        "type": {
+          "0": "tagged",
+          "1": "untagged"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/port-map/port-ref",
+        "status": "unstable",
+        "sid": "7102",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/status",
+        "status": "unstable",
+        "sid": "7103",
+        "type": {
+          "0": "other",
+          "1": "invalid",
+          "2": "learned",
+          "3": "self",
+          "4": "mgmt"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/filtering-entry/vids",
+        "status": "unstable",
+        "sid": "7104",
+        "type": "dot1qtypes:vid-range-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/mac-address-registration-entries",
+        "status": "unstable",
+        "sid": "7105",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/size",
+        "status": "unstable",
+        "sid": "7106",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/static-entries",
+        "status": "unstable",
+        "sid": "7107",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/static-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7108",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry",
+        "status": "unstable",
+        "sid": "7109"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/database-id",
+        "status": "unstable",
+        "sid": "7110",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/entry-type",
+        "status": "unstable",
+        "sid": "7111",
+        "type": {
+          "0": "static",
+          "1": "dynamic"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map",
+        "status": "unstable",
+        "sid": "7112"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-filtering-entries",
+        "status": "unstable",
+        "sid": "7113"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7114",
+        "type": {
+          "0": "forward"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-reservation-entries",
+        "status": "unstable",
+        "sid": "7115"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-reservation-entries/control-element",
+        "status": "unstable",
+        "sid": "7116",
+        "type": {
+          "0": "forward",
+          "1": "filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7117",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/dynamic-vlan-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7118",
+        "type": {
+          "0": "registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/mac-address-registration-entries",
+        "status": "unstable",
+        "sid": "7119",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/mac-address-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7120",
+        "type": {
+          "0": "registered",
+          "1": "not-registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-filtering-entries",
+        "status": "unstable",
+        "sid": "7121"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-filtering-entries/connection-identifier",
+        "status": "unstable",
+        "sid": "7122",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7123",
+        "type": {
+          "0": "forward",
+          "1": "filter",
+          "2": "forward-filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7124",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-vlan-registration-entries/registrar-admin-control",
+        "status": "unstable",
+        "sid": "7125",
+        "type": {
+          "0": "fixed-new-ignored",
+          "1": "fixed-new-propagated",
+          "2": "forbidden",
+          "3": "normal"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/static-vlan-registration-entries/vlan-transmitted",
+        "status": "unstable",
+        "sid": "7126",
+        "type": {
+          "0": "tagged",
+          "1": "untagged"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/port-map/port-ref",
+        "status": "unstable",
+        "sid": "7127",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/filtering-database/vlan-registration-entry/vids",
+        "status": "unstable",
+        "sid": "7128",
+        "type": "dot1qtypes:vid-range-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/id",
+        "status": "unstable",
+        "sid": "7129",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/name",
+        "status": "unstable",
+        "sid": "7130",
+        "type": "string"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database",
+        "status": "unstable",
+        "sid": "7131"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry",
+        "status": "unstable",
+        "sid": "7132"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/address",
+        "status": "unstable",
+        "sid": "7133",
+        "type": "ieee:mac-address"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/database-id",
+        "status": "unstable",
+        "sid": "7134",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map",
+        "status": "unstable",
+        "sid": "7135"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-filtering-entries",
+        "status": "unstable",
+        "sid": "7136"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7137",
+        "type": {
+          "0": "forward"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-reservation-entries",
+        "status": "unstable",
+        "sid": "7138"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-reservation-entries/control-element",
+        "status": "unstable",
+        "sid": "7139",
+        "type": {
+          "0": "forward",
+          "1": "filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7140",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/dynamic-vlan-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7141",
+        "type": {
+          "0": "registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/mac-address-registration-entries",
+        "status": "unstable",
+        "sid": "7142",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/mac-address-registration-entries/control-element",
+        "status": "unstable",
+        "sid": "7143",
+        "type": {
+          "0": "registered",
+          "1": "not-registered"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-filtering-entries",
+        "status": "unstable",
+        "sid": "7144"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-filtering-entries/connection-identifier",
+        "status": "unstable",
+        "sid": "7145",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-filtering-entries/control-element",
+        "status": "unstable",
+        "sid": "7146",
+        "type": {
+          "0": "forward",
+          "1": "filter",
+          "2": "forward-filter"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7147",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-vlan-registration-entries/registrar-admin-control",
+        "status": "unstable",
+        "sid": "7148",
+        "type": {
+          "0": "fixed-new-ignored",
+          "1": "fixed-new-propagated",
+          "2": "forbidden",
+          "3": "normal"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/static-vlan-registration-entries/vlan-transmitted",
+        "status": "unstable",
+        "sid": "7149",
+        "type": {
+          "0": "tagged",
+          "1": "untagged"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/port-map/port-ref",
+        "status": "unstable",
+        "sid": "7150",
+        "type": "port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/status",
+        "status": "unstable",
+        "sid": "7151",
+        "type": {
+          "0": "other",
+          "1": "invalid",
+          "2": "learned",
+          "3": "self",
+          "4": "mgmt"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/filtering-entry/vids",
+        "status": "unstable",
+        "sid": "7152",
+        "type": "dot1qtypes:vid-range-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/size",
+        "status": "unstable",
+        "sid": "7153",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/static-entries",
+        "status": "unstable",
+        "sid": "7154",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/permanent-database/static-vlan-registration-entries",
+        "status": "unstable",
+        "sid": "7155",
+        "type": "yang:gauge32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/ports",
+        "status": "unstable",
+        "sid": "7156",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/traffic-class-enabled",
+        "status": "unstable",
+        "sid": "7157",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/component/type",
+        "status": "unstable",
+        "sid": "7158",
+        "type": "identityref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/components",
+        "status": "unstable",
+        "sid": "7159",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/name",
+        "status": "unstable",
+        "sid": "7160",
+        "type": "dot1qtypes:name-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/ports",
+        "status": "unstable",
+        "sid": "7161",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ieee802-dot1q-bridge:bridges/bridge/up-time",
+        "status": "unstable",
+        "sid": "7162",
+        "type": "yang:zero-based-counter32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port",
+        "status": "unstable",
+        "sid": "7163"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/acceptable-frame",
+        "status": "unstable",
+        "sid": "7164",
+        "type": {
+          "0": "admit-only-VLAN-tagged-frames",
+          "1": "admit-only-untagged-and-priority-tagged",
+          "2": "admit-all-frames"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/address",
+        "status": "unstable",
+        "sid": "7165",
+        "type": "ieee:mac-address"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/admin-point-to-point",
+        "status": "unstable",
+        "sid": "7166",
+        "type": {
+          "1": "force-true",
+          "2": "force-false",
+          "3": "auto"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/bridge-name",
+        "status": "unstable",
+        "sid": "7167",
+        "type": "leafref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/capabilities",
+        "status": "unstable",
+        "sid": "7168",
+        "type": "bits"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/component-name",
+        "status": "unstable",
+        "sid": "7169",
+        "type": "leafref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/default-priority",
+        "status": "unstable",
+        "sid": "7170",
+        "type": "dot1qtypes:priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/drop-encoding",
+        "status": "unstable",
+        "sid": "7171",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/egress-vid-translations",
+        "status": "unstable",
+        "sid": "7172"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/egress-vid-translations/local-vid",
+        "status": "unstable",
+        "sid": "7173",
+        "type": "dot1qtypes:vlanid"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/egress-vid-translations/relay-vid",
+        "status": "unstable",
+        "sid": "7174",
+        "type": "dot1qtypes:vlanid"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/enable-egress-vid-translation-table",
+        "status": "unstable",
+        "sid": "7175",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/enable-ingress-filtering",
+        "status": "unstable",
+        "sid": "7176",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/enable-restricted-vlan-registration",
+        "status": "unstable",
+        "sid": "7177",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/enable-vid-translation-table",
+        "status": "unstable",
+        "sid": "7178",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/external",
+        "status": "unstable",
+        "sid": "7179",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/max-vid-set-entries",
+        "status": "unstable",
+        "sid": "7180",
+        "type": "uint16"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/media-dependent-overhead",
+        "status": "unstable",
+        "sid": "7181",
+        "type": "uint8"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/oper-point-to-point",
+        "status": "unstable",
+        "sid": "7182",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table",
+        "status": "unstable",
+        "sid": "7183"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map",
+        "status": "unstable",
+        "sid": "7184"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map/pcp",
+        "status": "unstable",
+        "sid": "7185",
+        "type": {
+          "0": "8P0D",
+          "1": "7P1D",
+          "2": "6P2D",
+          "3": "5P3D"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map",
+        "status": "unstable",
+        "sid": "7186"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/drop-eligible",
+        "status": "unstable",
+        "sid": "7187",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/priority",
+        "status": "unstable",
+        "sid": "7188",
+        "type": "priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-decoding-table/pcp-decoding-map/priority-map/priority-code-point",
+        "status": "unstable",
+        "sid": "7189",
+        "type": "priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table",
+        "status": "unstable",
+        "sid": "7190"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map",
+        "status": "unstable",
+        "sid": "7191"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map/pcp",
+        "status": "unstable",
+        "sid": "7192",
+        "type": {
+          "0": "8P0D",
+          "1": "7P1D",
+          "2": "6P2D",
+          "3": "5P3D"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map",
+        "status": "unstable",
+        "sid": "7193"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/dei",
+        "status": "unstable",
+        "sid": "7194",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/priority",
+        "status": "unstable",
+        "sid": "7195",
+        "type": "priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-encoding-table/pcp-encoding-map/priority-map/priority-code-point",
+        "status": "unstable",
+        "sid": "7196",
+        "type": "priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pcp-selection",
+        "status": "unstable",
+        "sid": "7197",
+        "type": {
+          "0": "8P0D",
+          "1": "7P1D",
+          "2": "6P2D",
+          "3": "5P3D"
+        }
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/port-number",
+        "status": "unstable",
+        "sid": "7198",
+        "type": "dot1qtypes:port-number-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/port-type",
+        "status": "unstable",
+        "sid": "7199",
+        "type": "identityref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration",
+        "status": "unstable",
+        "sid": "7200"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority0",
+        "status": "unstable",
+        "sid": "7201"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority1",
+        "status": "unstable",
+        "sid": "7202"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority2",
+        "status": "unstable",
+        "sid": "7203"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority3",
+        "status": "unstable",
+        "sid": "7204"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority4",
+        "status": "unstable",
+        "sid": "7205"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority5",
+        "status": "unstable",
+        "sid": "7206"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority6",
+        "status": "unstable",
+        "sid": "7207"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/priority-regeneration/priority7",
+        "status": "unstable",
+        "sid": "7208"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/protocol-based-vlan-classification",
+        "status": "unstable",
+        "sid": "7209",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/protocol-group-vid-set",
+        "status": "unstable",
+        "sid": "7210"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/protocol-group-vid-set/group-id",
+        "status": "unstable",
+        "sid": "7211",
+        "type": "uint32"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/protocol-group-vid-set/vid",
+        "status": "unstable",
+        "sid": "7212",
+        "type": "dot1qtypes:vlanid"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/pvid",
+        "status": "unstable",
+        "sid": "7213",
+        "type": "dot1qtypes:vlan-index-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority",
+        "status": "unstable",
+        "sid": "7214"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority-selection",
+        "status": "unstable",
+        "sid": "7215",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority0",
+        "status": "unstable",
+        "sid": "7216"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority1",
+        "status": "unstable",
+        "sid": "7217"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority2",
+        "status": "unstable",
+        "sid": "7218"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority3",
+        "status": "unstable",
+        "sid": "7219"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority4",
+        "status": "unstable",
+        "sid": "7220"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority5",
+        "status": "unstable",
+        "sid": "7221"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority6",
+        "status": "unstable",
+        "sid": "7222"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/service-access-priority/priority7",
+        "status": "unstable",
+        "sid": "7223"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics",
+        "status": "unstable",
+        "sid": "7224"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/delay-exceeded-discards",
+        "status": "unstable",
+        "sid": "7225",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/discard-inbound",
+        "status": "unstable",
+        "sid": "7226",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/discard-lack-of-buffers",
+        "status": "unstable",
+        "sid": "7227",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/discard-on-error",
+        "status": "unstable",
+        "sid": "7228",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/discard-on-ingress-filtering",
+        "status": "unstable",
+        "sid": "7229",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/discard-transit-delay-exceeded",
+        "status": "unstable",
+        "sid": "7230",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/forward-outbound",
+        "status": "unstable",
+        "sid": "7231",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/frame-rx",
+        "status": "unstable",
+        "sid": "7232",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/frame-tx",
+        "status": "unstable",
+        "sid": "7233",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/mtu-exceeded-discards",
+        "status": "unstable",
+        "sid": "7234",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/octets-rx",
+        "status": "unstable",
+        "sid": "7235",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/statistics/octets-tx",
+        "status": "unstable",
+        "sid": "7236",
+        "type": "yang:counter64"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class",
+        "status": "unstable",
+        "sid": "7237"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-map",
+        "status": "unstable",
+        "sid": "7238"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-map/available-traffic-class",
+        "status": "unstable",
+        "sid": "7239"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-map/available-traffic-class/num-traffic-class",
+        "status": "unstable",
+        "sid": "7240",
+        "type": "uint8"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-map/available-traffic-class/traffic-class",
+        "status": "unstable",
+        "sid": "7241",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-map/priority",
+        "status": "unstable",
+        "sid": "7242",
+        "type": "priority-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table",
+        "status": "unstable",
+        "sid": "7243"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/number-of-traffic-classes",
+        "status": "unstable",
+        "sid": "7244",
+        "type": "uint8"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority0",
+        "status": "unstable",
+        "sid": "7245",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority1",
+        "status": "unstable",
+        "sid": "7246",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority2",
+        "status": "unstable",
+        "sid": "7247",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority3",
+        "status": "unstable",
+        "sid": "7248",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority4",
+        "status": "unstable",
+        "sid": "7249",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority5",
+        "status": "unstable",
+        "sid": "7250",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority6",
+        "status": "unstable",
+        "sid": "7251",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/traffic-class/traffic-class-table/priority7",
+        "status": "unstable",
+        "sid": "7252",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/transmission-selection-algorithm-table",
+        "status": "unstable",
+        "sid": "7253"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/transmission-selection-algorithm-table/transmission-selection-algorithm-map",
+        "status": "unstable",
+        "sid": "7254"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/transmission-selection-algorithm-table/transmission-selection-algorithm-map/traffic-class",
+        "status": "unstable",
+        "sid": "7255",
+        "type": "traffic-class-type"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/transmission-selection-algorithm-table/transmission-selection-algorithm-map/transmission-selection-algorithm",
+        "status": "unstable",
+        "sid": "7256",
+        "type": "identityref"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/type-capabilties",
+        "status": "unstable",
+        "sid": "7257",
+        "type": "bits"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/use-dei",
+        "status": "unstable",
+        "sid": "7258",
+        "type": "boolean"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/vid-translations",
+        "status": "unstable",
+        "sid": "7259"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/vid-translations/local-vid",
+        "status": "unstable",
+        "sid": "7260",
+        "type": "dot1qtypes:vlanid"
+      },
+      {
+        "namespace": "data",
+        "identifier": "/ietf-interfaces:interfaces/interface/ieee802-dot1q-bridge:bridge-port/vid-translations/relay-vid",
+        "status": "unstable",
+        "sid": "7261",
+        "type": "dot1qtypes:vlanid"
+      }
+    ],
+    "key-mapping": {
+      "7026": [
+        7160
+      ],
+      "7029": [
+        7130
+      ],
+      "7083": [
+        7085,
+        7104,
+        7084
+      ],
+      "7087": [
+        7102
+      ],
+      "7109": [
+        7110,
+        7128
+      ],
+      "7112": [
+        7127
+      ],
+      "7132": [
+        7134,
+        7152,
+        7133
+      ],
+      "7135": [
+        7150
+      ],
+      "7065": [
+        7069
+      ],
+      "7048": [
+        7049
+      ],
+      "7059": [
+        7062
+      ],
+      "7041": [
+        7043
+      ],
+      "7058": [
+        7064
+      ],
+      "7032": [
+        7036
+      ],
+      "7033": [
+        7034
+      ],
+      "7184": [],
+      "7186": [],
+      "7191": [],
+      "7193": [],
+      "7238": [],
+      "7239": [],
+      "7254": []
+    },
+    "dependency-revision": [
+      {
+        "module-name": "ieee802-types",
+        "module-revision": "2023-04-19"
+      },
+      {
+        "module-name": "ietf-yang-types",
+        "module-revision": "2013-07-15"
+      },
+      {
+        "module-name": "ietf-interfaces",
+        "module-revision": "2018-02-20"
+      },
+      {
+        "module-name": "iana-if-type",
+        "module-revision": "2019-02-08"
+      },
+      {
+        "module-name": "ieee802-dot1q-types",
+        "module-revision": "2023-03-16"
+      }
+    ],
+    "sid-file-status": "unpublished"
+  }
+}

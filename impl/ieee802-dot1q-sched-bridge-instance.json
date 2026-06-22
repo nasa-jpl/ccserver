@@ -1,0 +1,441 @@
+{
+  "ietf-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "0",
+        "admin-status": "up",
+        "description": "0",
+        "enabled": false,
+        "higher-layer-if": 0,
+        "if-index": 0,
+        "last-change": "1970-01-01T00:00:00Z",
+        "link-up-down-trap-enable": "enabled",
+        "lower-layer-if": 0,
+        "oper-status": "up",
+        "phys-address": "00:00:00:00:00:00",
+        "speed": 0,
+        "statistics": {
+          "discontinuity-time": "1970-01-01T00:00:00Z",
+          "in-broadcast-pkts": 0,
+          "in-discards": 0,
+          "in-errors": 0,
+          "in-multicast-pkts": 0,
+          "in-octets": 0,
+          "in-unicast-pkts": 0,
+          "in-unknown-protos": 0,
+          "out-broadcast-pkts": 0,
+          "out-discards": 0,
+          "out-errors": 0,
+          "out-multicast-pkts": 0,
+          "out-octets": 0,
+          "out-unicast-pkts": 0
+        },
+        "ieee802-dot1q-bridge:bridge-port": {
+          "ieee802-dot1q-sched-bridge:gate-parameter-table": {
+            "admin-base-time": {
+              "nanoseconds": 0,
+              "seconds": 0
+            },
+            "admin-control-list": {
+              "gate-control-entry": [
+                {
+                  "gate-states-value": 0,
+                  "index": 0,
+                  "time-interval-value": 0
+                }
+              ]
+            },
+            "admin-cycle-time": {
+              "denominator": 0,
+              "numerator": 0
+            },
+            "admin-cycle-time-extension": 0,
+            "admin-gate-states": 0,
+            "config-change": false,
+            "config-change-error": 0,
+            "config-change-time": {
+              "nanoseconds": 0,
+              "seconds": 0
+            },
+            "config-pending": false,
+            "current-time": {
+              "nanoseconds": 0,
+              "seconds": 0
+            },
+            "gate-enabled": false,
+            "oper-base-time": {
+              "nanoseconds": 0,
+              "seconds": 0
+            },
+            "oper-control-list": {
+              "gate-control-entry": [
+                {
+                  "gate-states-value": 0,
+                  "index": 0,
+                  "time-interval-value": 0
+                }
+              ]
+            },
+            "oper-cycle-time": {
+              "denominator": 0,
+              "numerator": 0
+            },
+            "oper-cycle-time-extension": 0,
+            "oper-gate-states": 0,
+            "queue-max-sdu-table": [
+              {
+                "queue-max-sdu": 0,
+                "traffic-class": 0,
+                "transmission-overrun": 0
+              }
+            ],
+            "supported-cycle-max": {
+              "denominator": 0,
+              "numerator": 0
+            },
+            "supported-interval-max": 0,
+            "supported-list-max": 0,
+            "tick-granularity": 0
+          },
+          "acceptable-frame": "admit-only-VLAN-tagged-frames",
+          "address": "00:00:00:00:00:00",
+          "admin-point-to-point": "force-true",
+          "capabilities": 0,
+          "default-priority": 0,
+          "drop-encoding": false,
+          "egress-vid-translations": {
+            "local-vid": 0,
+            "relay-vid": 0
+          },
+          "enable-egress-vid-translation-table": false,
+          "enable-ingress-filtering": false,
+          "enable-restricted-vlan-registration": false,
+          "enable-vid-translation-table": false,
+          "external": false,
+          "max-vid-set-entries": 0,
+          "media-dependent-overhead": 0,
+          "oper-point-to-point": false,
+          "pcp-decoding-table": {
+            "pcp-decoding-map": [
+              {
+                "pcp": "8P0D",
+                "priority-map": [
+                  {
+                    "drop-eligible": false,
+                    "priority": 0,
+                    "priority-code-point": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "pcp-encoding-table": {
+            "pcp-encoding-map": [
+              {
+                "pcp": "8P0D",
+                "priority-map": [
+                  {
+                    "dei": false,
+                    "priority": 0,
+                    "priority-code-point": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "pcp-selection": "8P0D",
+          "port-number": 0,
+          "priority-regeneration": {
+            "priority0": {},
+            "priority1": {},
+            "priority2": {},
+            "priority3": {},
+            "priority4": {},
+            "priority5": {},
+            "priority6": {},
+            "priority7": {}
+          },
+          "protocol-based-vlan-classification": false,
+          "protocol-group-vid-set": {
+            "group-id": 0,
+            "vid": 0
+          },
+          "pvid": 0,
+          "service-access-priority": {
+            "priority0": {},
+            "priority1": {},
+            "priority2": {},
+            "priority3": {},
+            "priority4": {},
+            "priority5": {},
+            "priority6": {},
+            "priority7": {}
+          },
+          "service-access-priority-selection": false,
+          "statistics": {
+            "delay-exceeded-discards": 0,
+            "discard-inbound": 0,
+            "discard-lack-of-buffers": 0,
+            "discard-on-error": 0,
+            "discard-on-ingress-filtering": 0,
+            "discard-transit-delay-exceeded": 0,
+            "forward-outbound": 0,
+            "frame-rx": 0,
+            "frame-tx": 0,
+            "mtu-exceeded-discards": 0,
+            "octets-rx": 0,
+            "octets-tx": 0
+          },
+          "traffic-class": {
+            "traffic-class-map": [
+              {
+                "available-traffic-class": [
+                  {
+                    "num-traffic-class": 0,
+                    "traffic-class": 0
+                  }
+                ],
+                "priority": 0
+              }
+            ],
+            "traffic-class-table": {
+              "number-of-traffic-classes": 0,
+              "priority0": 0,
+              "priority1": 0,
+              "priority2": 0,
+              "priority3": 0,
+              "priority4": 0,
+              "priority5": 0,
+              "priority6": 0,
+              "priority7": 0
+            }
+          },
+          "transmission-selection-algorithm-table": {
+            "transmission-selection-algorithm-map": [
+              {
+                "traffic-class": 0
+              }
+            ]
+          },
+          "type-capabilties": 0,
+          "use-dei": false,
+          "vid-translations": {
+            "local-vid": 0,
+            "relay-vid": 0
+          }
+        }
+      }
+    ]
+  },
+  "ietf-interfaces:interfaces-state": {
+    "interface": [
+      {
+        "name": "0",
+        "admin-status": "up",
+        "higher-layer-if": 0,
+        "if-index": 0,
+        "last-change": "1970-01-01T00:00:00Z",
+        "lower-layer-if": 0,
+        "oper-status": "up",
+        "phys-address": "00:00:00:00:00:00",
+        "speed": 0,
+        "statistics": {
+          "discontinuity-time": "1970-01-01T00:00:00Z",
+          "in-broadcast-pkts": 0,
+          "in-discards": 0,
+          "in-errors": 0,
+          "in-multicast-pkts": 0,
+          "in-octets": 0,
+          "in-unicast-pkts": 0,
+          "in-unknown-protos": 0,
+          "out-broadcast-pkts": 0,
+          "out-discards": 0,
+          "out-errors": 0,
+          "out-multicast-pkts": 0,
+          "out-octets": 0,
+          "out-unicast-pkts": 0
+        }
+      }
+    ]
+  },
+  "ieee802-dot1q-bridge:bridges": {
+    "bridge": [
+      {
+        "name": 0,
+        "address": "00:00:00:00:00:00",
+        "component": [
+          {
+            "name": "0",
+            "address": "00:00:00:00:00:00",
+            "bridge-mst": {
+              "fid-to-mstid": [
+                {
+                  "fid": 0,
+                  "mstid": 0
+                }
+              ],
+              "fid-to-mstid-allocation": [
+                {
+                  "fids": 0,
+                  "mstid": 0
+                }
+              ],
+              "mstid": 0
+            },
+            "bridge-port": 0,
+            "bridge-vlan": {
+              "fid-to-vid-allocation": [
+                {
+                  "fid": 0,
+                  "allocation-type": "undefined",
+                  "vid": 0
+                }
+              ],
+              "max-msti": 0,
+              "max-vids": 0,
+              "override-default-pvid": false,
+              "protocol-group-database": [
+                {
+                  "db-index": 0,
+                  "frame-format-type": "Ethernet",
+                  "group-id": 0
+                }
+              ],
+              "protocol-template": "Ethernet",
+              "version": 0,
+              "vid-to-fid": [
+                {
+                  "vid": 0,
+                  "fid": 0
+                }
+              ],
+              "vid-to-fid-allocation": [
+                {
+                  "vids": 0,
+                  "allocation-type": "undefined",
+                  "fid": 0
+                }
+              ],
+              "vlan": [
+                {
+                  "vid": 0,
+                  "egress-ports": 0,
+                  "name": 0,
+                  "untagged-ports": 0
+                }
+              ]
+            },
+            "capabilities": {
+              "configurable-pvid-tagging": false,
+              "extended-filtering": false,
+              "hybrid-capable": false,
+              "ivl-capable": false,
+              "local-vlan-capable": false,
+              "static-entry-individual-port": false,
+              "svl-capable": false,
+              "traffic-classes": false
+            },
+            "filtering-database": {
+              "aging-time": 0,
+              "dynamic-entries": 0,
+              "dynamic-vlan-registration-entries": 0,
+              "filtering-entry": [
+                {
+                  "database-id": 0,
+                  "vids": 0,
+                  "address": "00:00:00:00:00:00",
+                  "entry-type": "static",
+                  "port-map": [
+                    {
+                      "port-ref": 0,
+                      "dynamic-filtering-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-reservation-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-vlan-registration-entries": 0,
+                      "mac-address-registration-entries": 0,
+                      "static-filtering-entries": {
+                        "connection-identifier": 0,
+                        "control-element": "forward"
+                      },
+                      "static-vlan-registration-entries": 0
+                    }
+                  ],
+                  "status": "other"
+                }
+              ],
+              "mac-address-registration-entries": 0,
+              "size": 0,
+              "static-entries": 0,
+              "static-vlan-registration-entries": 0,
+              "vlan-registration-entry": [
+                {
+                  "database-id": 0,
+                  "vids": 0,
+                  "entry-type": "static",
+                  "port-map": [
+                    {
+                      "port-ref": 0,
+                      "dynamic-filtering-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-reservation-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-vlan-registration-entries": 0,
+                      "mac-address-registration-entries": 0,
+                      "static-filtering-entries": {
+                        "connection-identifier": 0,
+                        "control-element": "forward"
+                      },
+                      "static-vlan-registration-entries": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            "id": 0,
+            "permanent-database": {
+              "filtering-entry": [
+                {
+                  "database-id": 0,
+                  "vids": 0,
+                  "address": "00:00:00:00:00:00",
+                  "port-map": [
+                    {
+                      "port-ref": 0,
+                      "dynamic-filtering-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-reservation-entries": {
+                        "control-element": "forward"
+                      },
+                      "dynamic-vlan-registration-entries": 0,
+                      "mac-address-registration-entries": 0,
+                      "static-filtering-entries": {
+                        "connection-identifier": 0,
+                        "control-element": "forward"
+                      },
+                      "static-vlan-registration-entries": 0
+                    }
+                  ],
+                  "status": "other"
+                }
+              ],
+              "size": 0,
+              "static-entries": 0,
+              "static-vlan-registration-entries": 0
+            },
+            "ports": 0,
+            "traffic-class-enabled": false
+          }
+        ],
+        "components": 0,
+        "ports": 0,
+        "up-time": 0
+      }
+    ]
+  }
+}
