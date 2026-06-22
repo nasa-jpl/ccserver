@@ -79,14 +79,37 @@ else()
 endif()
 
 # Code generation from .sid file(s)
-set(SID_FILES "" CACHE STRING "List of .sid files for code generation (space or semicolon-separated)")
+set(SID_CONFIG "" CACHE FILEPATH "Config file containing list of .sid files (one per line)")
+set(SID_FILES "" CACHE STRING "List of .sid files for code generation (space or semicolon-separated, alternative to SID_CONFIG)")
 set(GENERATED_NAME "generated" CACHE STRING "Base name for generated files")
 set(IDENTIFIER_MAX_WORDS "2" CACHE STRING "Maximum number of words from identifier path for function names (default: 2)")
 
 # Generate handlers from SID files
-if(SID_FILES)
+if(SID_CONFIG)
+    # Read SID files from config file
+    if(NOT EXISTS ${SID_CONFIG})
+        message(FATAL_ERROR "SID_CONFIG file not found: ${SID_CONFIG}")
+    endif()
+
+    file(STRINGS ${SID_CONFIG} SID_FILES_LIST REGEX "^[^#].*\\.sid$")
+
+    # Convert relative paths to absolute (relative to config file location)
+    get_filename_component(SID_CONFIG_DIR ${SID_CONFIG} DIRECTORY)
+    set(SID_FILES_ABSOLUTE "")
+    foreach(sid_file ${SID_FILES_LIST})
+        string(STRIP ${sid_file} sid_file)
+        if(NOT IS_ABSOLUTE ${sid_file})
+            set(sid_file "${SID_CONFIG_DIR}/${sid_file}")
+        endif()
+        list(APPEND SID_FILES_ABSOLUTE ${sid_file})
+    endforeach()
+    set(SID_FILES_LIST ${SID_FILES_ABSOLUTE})
+elseif(SID_FILES)
     # Convert SID_FILES to a CMake list (handles both space-separated strings and semicolon-separated lists)
     separate_arguments(SID_FILES_LIST UNIX_COMMAND "${SID_FILES}")
+endif()
+
+if(SID_FILES_LIST)
 
     message(STATUS "Code generation enabled for: ${SID_FILES_LIST} to ${GENERATED_NAME}")
 
@@ -130,8 +153,16 @@ else()
     set(SID_GENERATED_INCLUDES "")
 endif()
 
+# Generate configuration header for coreconf_handlers
+set(CORECONF_CONFIG_HEADER ${CMAKE_CURRENT_BINARY_DIR}/coreconf_config.h)
+configure_file(
+    ${PROJECT_SOURCE_DIR}/src/coreconf_config.h.in
+    ${CORECONF_CONFIG_HEADER}
+    @ONLY
+)
+
 # Generate initial datastore from instance .json
-if(INSTANCE_JSON AND SID_FILES) 
+if(INSTANCE_JSON AND SID_CONFIG)
     message(STATUS "Code generation enabled for: ${INSTANCE_JSON} to ${GENERATED_NAME}")
 
     set(INSTANCE_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
@@ -174,13 +205,14 @@ include_directories(
     ${CXXOPTS_INCLUDE_DIR}
     ${CCORECONF_DIR}/include
     ${INSTANCE_GENERATED_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}  # For coreconf_config.h
 )
 
 # Source files
 set(SOURCES
     src/main.cpp
     src/coreconf_handlers.cpp
-    impl/simple-example-impl.c
+    impl/${GENERATED_NAME}-impl.c
     ${HANDLER_SOURCES}
 )
 
