@@ -162,7 +162,7 @@ configure_file(
 )
 
 # Generate initial datastore from instance .json
-if(INSTANCE_JSON AND SID_CONFIG)
+if(INSTANCE_JSON AND SID_FILES_LIST)
     message(STATUS "Code generation enabled for: ${INSTANCE_JSON} to ${GENERATED_NAME}")
 
     set(INSTANCE_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
