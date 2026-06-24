@@ -46,7 +46,7 @@ int write_simpleExample_dataStore(CoreconfValueT* value) {
     Stable: False
 */
 
-uint64_t read_simpleExample_dataStore_dataStoreValue(void) {
+uint64_t read_dataStore_dataStoreValue(void) {
     // TODO: replace with proper return value for the leaf "/simple-example:data-store/data-store-value"
     uint64_t mockValue = 0;
     return mockValue;
@@ -61,7 +61,7 @@ uint64_t read_simpleExample_dataStore_dataStoreValue(void) {
     Stable: False
 */
 
-int write_simpleExample_dataStore_dataStoreValue(uint64_t value) {
+int write_dataStore_dataStoreValue(uint64_t value) {
     // TODO: Implement write logic for this SID
     // For now, just return success
     return 0;
@@ -76,7 +76,7 @@ int write_simpleExample_dataStore_dataStoreValue(uint64_t value) {
     Stable: False
 */
 
-CoreconfValueT* read_simpleExample_dataStore_itemList(uint64_t dataStore_itemList_index) {
+CoreconfValueT* read_dataStore_itemList(uint64_t itemList_index) {
     // TODO: Implement read logic for list/container
     // For now, return NULL
     return NULL;
@@ -91,7 +91,7 @@ CoreconfValueT* read_simpleExample_dataStore_itemList(uint64_t dataStore_itemLis
     Stable: False
 */
 
-int write_simpleExample_dataStore_itemList(uint64_t dataStore_itemList_index, CoreconfValueT* value) {
+int write_dataStore_itemList(uint64_t itemList_index, CoreconfValueT* value) {
     // TODO: Implement write logic for this SID
     // For now, just return success
     return 0;
@@ -106,7 +106,7 @@ int write_simpleExample_dataStore_itemList(uint64_t dataStore_itemList_index, Co
     Stable: False
 */
 
-CoreconfValueT* read_dataStore_itemList_subItemList(uint64_t itemList_subItemList_index) {
+CoreconfValueT* read_itemList_subItemList(uint64_t subItemList_index) {
     // TODO: Implement read logic for list/container
     // For now, return NULL
     return NULL;
@@ -121,7 +121,7 @@ CoreconfValueT* read_dataStore_itemList_subItemList(uint64_t itemList_subItemLis
     Stable: False
 */
 
-int write_dataStore_itemList_subItemList(uint64_t itemList_subItemList_index, CoreconfValueT* value) {
+int write_itemList_subItemList(uint64_t subItemList_index, CoreconfValueT* value) {
     // TODO: Implement write logic for this SID
     // For now, just return success
     return 0;
@@ -136,7 +136,7 @@ int write_dataStore_itemList_subItemList(uint64_t itemList_subItemList_index, Co
     Stable: False
 */
 
-int64_t read_itemList_subItemList_subValue(void) {
+int64_t read_subItemList_subValue(void) {
     // TODO: replace with proper return value for the leaf "/simple-example:data-store/item-list/sub-item-list/sub-value"
     int64_t mockValue = 0;
     return mockValue;
@@ -151,7 +151,7 @@ int64_t read_itemList_subItemList_subValue(void) {
     Stable: False
 */
 
-int write_itemList_subItemList_subValue(int64_t value) {
+int write_subItemList_subValue(int64_t value) {
     // TODO: Implement write logic for this SID
     // For now, just return success
     return 0;
@@ -166,7 +166,7 @@ int write_itemList_subItemList_subValue(int64_t value) {
     Stable: False
 */
 
-int64_t read_dataStore_itemList_value(void) {
+int64_t read_itemList_value(void) {
     // TODO: replace with proper return value for the leaf "/simple-example:data-store/item-list/value"
     int64_t mockValue = 0;
     return mockValue;
@@ -181,8 +181,117 @@ int64_t read_dataStore_itemList_value(void) {
     Stable: False
 */
 
-int write_dataStore_itemList_value(int64_t value) {
+int write_itemList_value(int64_t value) {
     // TODO: Implement write logic for this SID
     // For now, just return success
+    return 0;
+}
+
+/**
+ * GET handler - Returns the coreconf model or a subset for GET requests
+ *
+ * @param coreconfModel - Pointer to the full coreconf model
+ * @return CoreconfValueT* - The value to return in the GET response
+ *                          By default returns the entire model, but can be
+ *                          overridden to return a filtered subset
+ *
+ * Default behavior: Returns the entire coreconfModel
+ * To customize: Implement logic to filter or transform the model
+ */
+CoreconfValueT* handleGetRequest(CoreconfValueT *coreconfModel) {
+    // Default: return the entire model
+    // To return a subset, implement your custom logic here
+    return coreconfModel;
+}
+
+/**
+ * PUT handler - Validates and replaces the coreconf model
+ *
+ * @param coreconfModel - Pointer to the current coreconf model
+ * @param newValue - The new value to replace the model with
+ * @param clookupHashmap - Pointer to the lookup hashmap that needs rebuilding
+ * @return int - 0 on success, non-zero error code on failure
+ *
+ * This function performs validation and replaces the model on success
+ */
+int handlePutRequest(CoreconfValueT **coreconfModel, CoreconfValueT *newValue, struct hashmap **clookupHashmap) {
+    if (coreconfModel == NULL || *coreconfModel == NULL || newValue == NULL) {
+        printf("PUT validation failed: NULL pointer\n");
+        return -1;
+    }
+
+    // Validate that both are hashmaps (required for top-level CORECONF model)
+    if ((*coreconfModel)->type != CORECONF_HASHMAP || newValue->type != CORECONF_HASHMAP) {
+        printf("PUT validation failed: Top-level must be a hashmap\n");
+        return -2;
+    }
+
+    CoreconfHashMapT *currentMap = (*coreconfModel)->data.map_value;
+    CoreconfHashMapT *newMap = newValue->data.map_value;
+
+    if (currentMap == NULL || newMap == NULL) {
+        printf("PUT validation failed: Invalid hashmap structure\n");
+        return -3;
+    }
+
+    // Validate that the top-level SIDs match
+    // The top-level map keys are the module SIDs
+    if (currentMap->size == 0 || newMap->size == 0) {
+        printf("PUT validation failed: Empty hashmaps\n");
+        return -4;
+    }
+
+    // Check if top-level SIDs are compatible
+    // Iterate through new hashmap and check if at least one SID exists in current map
+    bool foundMatchingSID = false;
+    for (size_t i = 0; i < HASHMAP_TABLE_SIZE && !foundMatchingSID; i++) {
+        CoreconfObjectT *newEntry = newMap->table[i];
+        while (newEntry != NULL) {
+            uint64_t newSID = newEntry->key;
+
+            // Check if this SID exists in the current map
+            for (size_t j = 0; j < HASHMAP_TABLE_SIZE; j++) {
+                CoreconfObjectT *currentEntry = currentMap->table[j];
+                while (currentEntry != NULL) {
+                    if (currentEntry->key == newSID) {
+                        foundMatchingSID = true;
+                        break;
+                    }
+                    currentEntry = currentEntry->next;
+                }
+                if (foundMatchingSID) {
+                    break;
+                }
+            }
+
+            if (foundMatchingSID) {
+                break;
+            }
+            newEntry = newEntry->next;
+        }
+    }
+
+    if (!foundMatchingSID) {
+        printf("PUT validation failed: No matching top-level SIDs\n");
+        return -5;
+    }
+
+    // TODO: Add any additional user-specific validation logic here
+    // Return a non-zero error code to reject the PUT request
+
+    // All validation passed - free old model and replace with new one
+    freeCoreconf(*coreconfModel, true);
+    *coreconfModel = newValue;
+
+    // Rebuild lookup hashmap with the new model
+    if (clookupHashmap != NULL && *clookupHashmap != NULL) {
+        hashmap_free(*clookupHashmap);
+        *clookupHashmap = hashmap_new(sizeof(CLookupT), 0, 0, 0, clookupHash, clookupCompare, clookupFree, NULL);
+        buildCLookupHashmapFromCoreconf(*coreconfModel, *clookupHashmap, 0, 0);
+        printf("PUT succeeded: Model replaced and lookup hashmap rebuilt\n");
+    } else {
+        printf("PUT succeeded: Model replaced (no lookup hashmap to rebuild)\n");
+    }
+
     return 0;
 }

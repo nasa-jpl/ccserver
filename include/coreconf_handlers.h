@@ -35,6 +35,13 @@ void handle_fetch(coap_resource_t *resource, coap_session_t *session, const coap
                   const coap_string_t *query, coap_pdu_t *response);
 
 /**
+ * Handler for CoAP PUT requests
+ * Maps to CORECONF PUT operation for replacing entire resource
+ */
+void handle_put(coap_resource_t *resource, coap_session_t *session, const coap_pdu_t *request,
+                const coap_string_t *query, coap_pdu_t *response);
+
+/**
  * Handler for CoAP iPATCH requests (RFC 8132)
  * Maps to CORECONF iPATCH operation for partial updates
  */
