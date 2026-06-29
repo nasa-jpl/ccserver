@@ -126,8 +126,7 @@ ccserver/
 ├── src/                        # Source files
 │   ├── main.cpp               # Server initialization and main loop
 │   ├── coreconf_handlers.cpp  # CORECONF request handlers
-│   ├── sid_handlers.c         # SID handler registry implementation
-│   └── nanocbor_print.c       # CBOR debugging utilities
+│   └── sid_handlers.c         # SID handler registry implementation
 └── build/                      # Build output directory
     └── generated/             # Auto-generated handler code
         ├── simple-example-handlers.c
