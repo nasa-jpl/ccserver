@@ -119,8 +119,8 @@ if(SID_FILES_LIST)
     set(SID_HANDLER_HEADER ${SID_GENERATED_DIR}/${GENERATED_NAME}-handlers.h)
     set(SID_HANDLER_SOURCE ${SID_GENERATED_DIR}/${GENERATED_NAME}-handlers.c)
 
-    # Find Python3
-    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    # Find uv
+    find_program(UV_EXECUTABLE NAMES uv REQUIRED)
 
     # Create generated directory
     file(MAKE_DIRECTORY ${SID_GENERATED_DIR})
@@ -129,16 +129,17 @@ if(SID_FILES_LIST)
     # Generates: *-handlers.h, *-handlers.c (auto-included in build)
     #           *-impl.h, *-impl.c (user copies to src/ and modifies)
     add_custom_command(
-        OUTPUT ${SID_HANDLER_HEADER} ${SID_HANDLER_SOURCE}
-        COMMAND ${Python3_EXECUTABLE}
-            ${CCORECONF_DIR}/tools/generateStubs.py
-            ${GENERATED_NAME}
-            -f ${SID_FILES_LIST}
-            --max-identifier-words ${IDENTIFIER_MAX_WORDS}
-        DEPENDS ${SID_FILES_LIST} ${CCORECONF_DIR}/tools/generateStubs.py
-        WORKING_DIRECTORY ${SID_GENERATED_DIR}
-        COMMENT "Generating handler wrappers from .sid files"
-        VERBATIM
+      OUTPUT ${SID_HANDLER_HEADER} ${SID_HANDLER_SOURCE}
+      COMMAND ${UV_EXECUTABLE}
+      run
+      ${CCORECONF_DIR}/tools/generateStubs.py
+      ${GENERATED_NAME}
+      -f ${SID_FILES_LIST}
+      --max-identifier-words ${IDENTIFIER_MAX_WORDS}
+      DEPENDS ${SID_FILES_LIST} ${CCORECONF_DIR}/tools/generateStubs.py
+      WORKING_DIRECTORY ${SID_GENERATED_DIR}
+      COMMENT "Generating handler wrappers from .sid files"
+      VERBATIM
     )
 
     # Add generated files as a custom target
@@ -168,8 +169,8 @@ if(INSTANCE_JSON AND SID_FILES_LIST)
     set(INSTANCE_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
     set(INSTANCE_GENERATED_HEADER ${INSTANCE_GENERATED_DIR}/${GENERATED_NAME}-instance.h)
 
-    # Find Python3
-    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    # Find uv
+    find_program(UV_EXECUTABLE NAMES uv REQUIRED)
 
     # Create generated directory
     file(MAKE_DIRECTORY ${INSTANCE_GENERATED_DIR})
@@ -177,11 +178,12 @@ if(INSTANCE_JSON AND SID_FILES_LIST)
     # Custom command to run generateCBORDumps.py
     add_custom_command(
         OUTPUT ${INSTANCE_GENERATED_HEADER}
-        COMMAND ${Python3_EXECUTABLE}
-            ${CCORECONF_DIR}/tools/generateCBORDumps.py
-            -i ${INSTANCE_JSON}
-            -s ${SID_FILES_LIST}
-            -o ${INSTANCE_GENERATED_HEADER}
+        COMMAND ${UV_EXECUTABLE}
+        run
+        ${CCORECONF_DIR}/tools/generateCBORDumps.py
+        -i ${INSTANCE_JSON}
+        -s ${SID_FILES_LIST}
+        -o ${INSTANCE_GENERATED_HEADER}
         DEPENDS ${INSTANCE_JSON} ${SID_FILES_LIST} ${CCORECONF_DIR}/tools/generateCBORDumps.py
         WORKING_DIRECTORY ${INSTANCE_GENERATED_DIR}
         COMMENT "Generating code from .json instance"
