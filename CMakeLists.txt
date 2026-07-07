@@ -210,19 +210,27 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}  # For coreconf_config.h
 )
 
+# Option to build as library (without main) or executable
+option(BUILD_CCSERVER_LIB "Build ccserver as a library instead of executable" OFF)
+
 # Source files
-set(SOURCES
-    src/main.cpp
+set(LIB_SOURCES
     src/coreconf_handlers.cpp
     impl/${GENERATED_NAME}-impl.c
     ${HANDLER_SOURCES}
 )
 
-# Create executable
-add_executable(ccserver ${SOURCES})
+if(BUILD_CCSERVER_LIB)
+    # Build as static library (for integration into parent project)
+    add_library(ccserver STATIC ${LIB_SOURCES})
+else()
+    # Build as standalone executable
+    add_executable(ccserver src/main.cpp ${LIB_SOURCES})
+endif()
+
 add_dependencies(ccserver
-  generate_instance
-  generate_handlers
+    generate_instance
+    generate_handlers
 )
 
 # Link libraries
