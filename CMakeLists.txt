@@ -210,23 +210,15 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}  # For coreconf_config.h
 )
 
-# Option to build as library (without main) or executable
-option(BUILD_CCSERVER_LIB "Build ccserver as a library instead of executable" OFF)
-
-# Source files
+# Library source files (always built)
 set(LIB_SOURCES
     src/coreconf_handlers.cpp
     impl/${GENERATED_NAME}-impl.c
     ${HANDLER_SOURCES}
 )
 
-if(BUILD_CCSERVER_LIB)
-    # Build as static library (for integration into parent project)
-    add_library(ccserver STATIC ${LIB_SOURCES})
-else()
-    # Build as standalone executable
-    add_executable(ccserver src/main.cpp ${LIB_SOURCES})
-endif()
+# Build ccserver as static library (default target)
+add_library(ccserver STATIC ${LIB_SOURCES})
 
 add_dependencies(ccserver
     generate_instance
@@ -234,7 +226,7 @@ add_dependencies(ccserver
 )
 
 # Link libraries
-target_link_libraries(ccserver
+target_link_libraries(ccserver PUBLIC
     ${COAP_LIBRARIES}
     nanocbor
     ccoreconf
@@ -247,8 +239,20 @@ target_compile_options(ccserver PRIVATE
     -Wpedantic
 )
 
+# Example executable (not built by default, use 'make example' to build)
+add_executable(example EXCLUDE_FROM_ALL examples/main.cpp)
+target_link_libraries(example PRIVATE ccserver)
+
+target_compile_options(example PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+
 # Installation rules
-install(TARGETS ccserver DESTINATION bin)
+install(TARGETS ccserver DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include)
+install(TARGETS example DESTINATION bin)
 
 # Print configuration summary
 message(STATUS "")
