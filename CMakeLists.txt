@@ -210,23 +210,23 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}  # For coreconf_config.h
 )
 
-# Source files
-set(SOURCES
-    src/main.cpp
+# Library source files (always built)
+set(LIB_SOURCES
     src/coreconf_handlers.cpp
     impl/${GENERATED_NAME}-impl.c
     ${HANDLER_SOURCES}
 )
 
-# Create executable
-add_executable(ccserver ${SOURCES})
+# Build ccserver as static library (default target)
+add_library(ccserver STATIC ${LIB_SOURCES})
+
 add_dependencies(ccserver
-  generate_instance
-  generate_handlers
+    generate_instance
+    generate_handlers
 )
 
 # Link libraries
-target_link_libraries(ccserver
+target_link_libraries(ccserver PUBLIC
     ${COAP_LIBRARIES}
     nanocbor
     ccoreconf
@@ -239,8 +239,20 @@ target_compile_options(ccserver PRIVATE
     -Wpedantic
 )
 
+# Example executable (not built by default, use 'make example' to build)
+add_executable(example EXCLUDE_FROM_ALL examples/main.cpp)
+target_link_libraries(example PRIVATE ccserver)
+
+target_compile_options(example PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+
 # Installation rules
-install(TARGETS ccserver DESTINATION bin)
+install(TARGETS ccserver DESTINATION lib)
+install(DIRECTORY include/ DESTINATION include)
+install(TARGETS example DESTINATION bin)
 
 # Print configuration summary
 message(STATUS "")
