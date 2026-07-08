@@ -63,11 +63,17 @@ git clone --recursive <repository-url>
 # Or if already cloned, initialize submodules
 git submodule update --init --recursive
 
-# Build
+# Build the library
 mkdir build
 cd build
-cmake -DSID_FILES="../impl/simple-example@2026-06-04.sid" -DINSTANCE_JSON="../impl/simple-example-instance.json" -DGENERATED_NAME="simple-example" ..
+cmake -DSID_FILES="../impl/simple-example@2026-06-04.sid" \
+      -DINSTANCE_JSON="../impl/simple-example-instance.json" \
+      -DGENERATED_NAME="simple-example" \
+      ..
 make
+
+# Build the optional example executable
+make example
 ----
 
 The build process will:
@@ -75,22 +81,44 @@ The build process will:
 . Build external dependencies (NanoCBOR, ccoreconf)
 . Generate SID handlers from `.sid` files
 . Generate model instance CBOR buffer
-. Compile the server binary
+. Compile the static library (`libccserver.a`)
+
+=== Build Targets
+
+* `ccserver` (default) - Builds the static library for integration into other applications
+* `example` - Builds the standalone example executable (not built by default)
+
+The typical use case is to link against the `ccserver` library from your own application. The `example` target provides a reference implementation.
 
 == Usage
 
-=== Starting the Server
+=== Using as a Library
+
+The primary use case is to link against `libccserver.a` in your own application:
+
+[source,cmake]
+----
+# In your CMakeLists.txt
+target_link_libraries(your_app PRIVATE ccserver)
+----
+
+See the `examples/main.cpp` for a reference implementation of how to initialize and run the server.
+
+=== Running the Example Executable
 
 [source,bash]
 ----
+# Build the example first
+make example
+
 # Run with default settings (bind to all interfaces on port 5683)
-./ccserver
+./example
 
 # Specify host and port
-./ccserver --host 127.0.0.1 --port 5684
+./example --host 127.0.0.1 --port 5684
 
 # Show help
-./ccserver --help
+./example --help
 ----
 
 === Testing with CoAP Client
@@ -120,18 +148,24 @@ ccserver/
 ├── include/                    # Header files
 │   ├── coreconf_handlers.h    # CORECONF protocol handlers
 │   └── sid_handlers.h         # SID handler registry
-├── impl/                       # User implementation files
-│   ├── simple-example-impl.c  # User defined logic for data read/write
-│   └── simple-example-impl.h  # Implementation header
-├── src/                        # Source files
-│   ├── main.cpp               # Server initialization and main loop
+├── impl/                       # User implementation files (project-specific)
+│   ├── <model>-impl.c         # User defined logic for data read/write
+│   └── <model>-impl.h         # Implementation header
+├── examples/                   # Example applications
+│   └── main.cpp               # Standalone server example
+├── src/                        # Library source files
 │   ├── coreconf_handlers.cpp  # CORECONF request handlers
-│   └── sid_handlers.c         # SID handler registry implementation
+│   └── coreconf_config.h.in   # Configuration header template
 └── build/                      # Build output directory
+    ├── libccserver.a          # Built static library
+    ├── example                # Example executable (if built)
     └── generated/             # Auto-generated handler code
-        ├── simple-example-handlers.c
-        └── simple-example-handlers.h
+        ├── <model>-handlers.c
+        ├── <model>-handlers.h
+        └── <model>-instance.h
 ----
+
+NOTE: The `impl/` directory contains project-specific implementation files. When using ccserver as a submodule, these files should be managed by the parent project and copied into `impl/` during the build process.
 
 == Implementation Guide
 
