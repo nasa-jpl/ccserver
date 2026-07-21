@@ -2,7 +2,7 @@
 :toc:
 :toclevels: 3
 :numbered:
-
+:imagesdir: ./docs
 A C++ implementation of a CORECONF (YANG-CBOR) server using libcoap, nanocbor, and ccoreconf.
 
 == Overview
@@ -19,12 +19,14 @@ The server implements the three main CORECONF operations:
 
 == Architecture
 
-The server uses a layered architecture:
+The server is architected to allow autocoding of common code, and user specific implementation stubs, based on input YANG and SID files.
+
+image::handler-architecture.drawio.png[]
 
 . *CoAP Layer*: Handles CoAP protocol communication (libcoap)
-. *CORECONF Handler Layer*: Processes CORECONF requests and responses
-. *SID Handler Registry*: Maps SIDs to read/write handlers
-. *Implementation Layer*: User-provided business logic for data access
+. *Handler Registry*: Maps SIDs to read/write handlers
+. *Handler Wrappers*: Routines for default read/write and invoking custom implementations
+. *User Implementation*: User-provided logic for data access
 . *Datastore*: In-memory YANG data tree with CBOR serialization
 
 === Key Components
